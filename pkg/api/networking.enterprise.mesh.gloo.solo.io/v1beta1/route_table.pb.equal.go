@@ -63,6 +63,10 @@ func (m *RouteTableSpec) Equal(that interface{}) bool {
 
 	}
 
+	if m.GetWeight() != target.GetWeight() {
+		return false
+	}
+
 	return true
 }
 
