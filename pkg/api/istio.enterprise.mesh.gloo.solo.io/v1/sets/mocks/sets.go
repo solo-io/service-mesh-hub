@@ -38,6 +38,20 @@ func (m *MockIstioInstallationSet) EXPECT() *MockIstioInstallationSetMockRecorde
 	return m.recorder
 }
 
+// Clone mocks base method.
+func (m *MockIstioInstallationSet) Clone() v1sets.IstioInstallationSet {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Clone")
+	ret0, _ := ret[0].(v1sets.IstioInstallationSet)
+	return ret0
+}
+
+// Clone indicates an expected call of Clone.
+func (mr *MockIstioInstallationSetMockRecorder) Clone() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Clone", reflect.TypeOf((*MockIstioInstallationSet)(nil).Clone))
+}
+
 // Delete mocks base method.
 func (m *MockIstioInstallationSet) Delete(istioInstallation ezkube.ResourceId) {
 	m.ctrl.T.Helper()

@@ -44,6 +44,8 @@ type IstioInstallationSet interface {
 	Generic() sksets.ResourceSet
 	// returns the delta between this and and another IstioInstallationSet
 	Delta(newSet IstioInstallationSet) sksets.ResourceDelta
+	// Create a deep copy of the current IstioInstallationSet
+	Clone() IstioInstallationSet
 }
 
 func makeGenericIstioInstallationSet(istioInstallationList []*istio_enterprise_mesh_gloo_solo_io_v1.IstioInstallation) sksets.ResourceSet {
@@ -221,4 +223,11 @@ func (s *istioInstallationSet) Delta(newSet IstioInstallationSet) sksets.Resourc
 		}
 	}
 	return s.Generic().Delta(newSet.Generic())
+}
+
+func (s *istioInstallationSet) Clone() IstioInstallationSet {
+	if s == nil {
+		return nil
+	}
+	return &istioInstallationSet{set: sksets.NewResourceSet(s.Generic().Clone().List()...)}
 }
