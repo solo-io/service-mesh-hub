@@ -317,6 +317,16 @@ func (m *VirtualMeshStatus) Equal(that interface{}) bool {
 
 	}
 
+	if h, ok := interface{}(m.GetRotationTarget()).(equality.Equalizer); ok {
+		if !h.Equal(target.GetRotationTarget()) {
+			return false
+		}
+	} else {
+		if !proto.Equal(m.GetRotationTarget(), target.GetRotationTarget()) {
+			return false
+		}
+	}
+
 	return true
 }
 
