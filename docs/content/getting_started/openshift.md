@@ -202,10 +202,14 @@ oc create namespace $INSTALL_NAMESPACE
 helm install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enterprise --kube-context $MGMT_CONTEXT -n $INSTALL_NAMESPACE \
 --set licenseKey=${GLOO_MESH_LICENSE_KEY} \
 --set metricsBackend.prometheus.enabled=false \
---set gloo-mesh-ui.GlooMeshDashboard.apiserver.floatingUserId=true 
+--set gloo-mesh-ui.GlooMeshDashboard.apiserver.floatingUserId=true \
+--set rbac-webhook.enabled=false
 ````
 
-Note: In the example command above, Prometheus is disabled because it requires extra configuration. If you wish to install Gloo Mesh Enterprise with Prometheus enabled, consult the installation instructions [here]({{% versioned_link_path fromRoot="/guides/observability/metrics/#openshift-integration" %}}). 
+In the example command above, Prometheus is disabled because it requires extra configuration. 
+If you wish to install Gloo Mesh Enterprise with Prometheus enabled, consult the installation instructions [here]({{% versioned_link_path fromRoot="/guides/observability/metrics/#openshift-integration" %}}). 
+The floatingUserId is needed for properer dashboard functionality in Openshift. The disabling of rbac-webhook is meant to simplify the
+installation process. More context about that is provided [here]({{% versioned_link_path fromRoot="/getting_started/managed_kubernetes/#installing-the-gloo-mesh-management-components" %}}).
 
 
 ### Verify install
