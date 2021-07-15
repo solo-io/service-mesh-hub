@@ -204,7 +204,6 @@ For relay communication you will need to issue a mTLS Server Certificate for the
 See [Certificates outside of Gloo Mesh](./without_gloo_mesh.md)
 
 
-
 ### For Istio CAs
 
 * Kubernetes Secrets
@@ -225,7 +224,7 @@ kubectl create secret generic cacerts -n istio-system \
 
 See [Certificates outside of Gloo Mesh](./without_gloo_mesh.md)
 
-[Istio Pligin CA Certificate](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/)
+[Istio Plugin CA Certificate](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/)
 
 ### Vault
 
