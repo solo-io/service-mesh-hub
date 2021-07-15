@@ -1,0 +1,52 @@
+syntax = "proto3";
+package istio.enterprise.mesh.gloo.solo.io;
+
+option go_package = "github.com/solo-io/gloo-mesh/pkg/api/istio.enterprise.mesh.gloo.solo.io/v1";
+
+import "github.com/solo-io/skv2/api/core/v1/core.proto";
+
+message IstioInstallationSpec {
+    // The cluster where the IstioOperators should be installed
+    string cluster_name = 1;
+
+    // References for the IstioOperators that should be installed in the managed cluster
+    repeated .core.skv2.solo.io.ObjectRef istio_operator_refs = 2;
+}
+
+message IstioInstallationStatus {
+    message IstioOperatorStatus {
+        // The state of a IstioOperator installation
+        enum State {
+            // Waiting for resources to be reconciled
+            PENDING = 0;
+
+            // In the process of reconciling Istio resources on to the managed cluster
+            RECONCILING = 1;
+
+            // All Istio components were installed successfully and they are healthy
+            HEALTHY = 2;
+
+            // One or more installed Istio component(s) in an error state
+            ERROR = 3;
+        }
+
+        // The most recent generation observed in the the IstioOperator metadata.
+        // If the `observedGeneration` does not match `metadata.generation`,
+        // Gloo Mesh has not processed the most recent version of this resource.
+        int64 observed_generation = 1;
+
+        // The current state of the IstioOperator
+        State state = 2;
+
+        // A human readable message about the current state of the IstioOperator
+        string message = 3;
+    }
+
+    // The most recent generation observed in the the IstioInstallation metadata.
+    // If the `observedGeneration` does not match `metadata.generation`,
+    // Gloo Mesh has not processed the most recent version of this resource.
+    int64 observed_generation = 1;
+
+    // The status of the installation for each IstioOperator that should be applied.
+    map<string, IstioOperatorStatus> statuses = 2;
+}

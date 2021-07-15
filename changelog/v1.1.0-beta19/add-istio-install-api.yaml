@@ -1,0 +1,5 @@
+changelog:
+  - type: NON_USER_FACING
+    description: Add API and CRD for Gloo Mesh managed Istio installations
+    issueLink: https://github.com/solo-io/gloo-mesh-enterprise/issues/848
+    resolvesIssue: true

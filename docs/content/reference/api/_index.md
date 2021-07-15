@@ -48,6 +48,12 @@ These docs describe Gloo Mesh CRDs.
 
 
 
+### istio.enterprise.mesh.gloo.solo.io
+
+  - [IstioInstallation]({{< versioned_link_path fromRoot="/reference/api/github.com.solo-io.gloo-mesh.api.enterprise.istio.v1.istio_installation#istio.enterprise.mesh.gloo.solo.io.IstioInstallationSpec" >}})
+
+
+
 ### networking.enterprise.mesh.gloo.solo.io
 
   - [RateLimiterServerConfig]({{< versioned_link_path fromRoot="/reference/api/github.com.solo-io.gloo-mesh.api.enterprise.networking.v1beta1.rate_limit_server_config#networking.enterprise.mesh.gloo.solo.io.RateLimiterServerConfigSpec" >}})
