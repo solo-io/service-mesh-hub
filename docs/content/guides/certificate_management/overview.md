@@ -11,16 +11,101 @@ Server/Client mTLS certificates are required for communication between the manag
 
 These agent certificates need to share the same root of trust but it is not required to have to be a part of the same root of trust as your Istio deployments. 
 
+If you are interested in generating your own certificates see [Manually Provisioning Relay Certificates](./generate_relay_certs.md)
+
 1. enterprise-networking (server certificate)
+
+Example enterprise-networking Server Certificate Configuration
+
+```sh
+# enterprise-networking-server.conf
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS = *.gloo-mesh
+```
+
+
 2. enterprise-agent (client certificate) per cluster
 
 
+Example enterprise-agent Signing CA configuration
+```sh
+# enterprise-agent-signing-ca.conf
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = critical,CA:TRUE
+keyUsage = digitalSignature, keyEncipherment, keyCertSign
+extendedKeyUsage = clientAuth, serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS = *.gloo-mesh
+```
+
+Example enterprise-agent Client Certificate configuration
+
+
+**NOTE** The DNS name in the agent certificate must match the cluster name in the Gloo Mesh Management Plane or the agent will be rejected.
+```sh
+CLUSTER_NAME=cluster-1
+
+# enterprise-agent-client.conf
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS = ${CLUSTER_NAME}"
+```
+
 ### Istio Deployments
 
-Each Istio deployment requires that a CA certificate exists at the kubernetes secret `cacerts` in the `istio-system` namespace. Istio will use this certificate to issue workload certificates to each pod within the mesh. 
+Each Istio deployment requires that a CA certificate exists at the kubernetes secret `cacerts` in the `istio-system` namespace. Istio will use this certificate to issue workload certificates to each pod within the mesh.
+
+If you would like to generate your own Istio CA certificates you can reference [Manually Provisioning Istio CA Certs](./generate_istio_ca.md)
 
 1. Istio CA Certificate per cluster
+Example Istio Signing CA configuration
+```sh
+CLUSTER_NAME=cluster-1
 
+# istio-signing-ca.conf
+[ req ]
+encrypt_key = no
+prompt = no
+utf8 = yes
+default_md = sha256
+default_bits = 4096
+req_extensions = req_ext
+x509_extensions = req_ext
+distinguished_name = req_dn
+[ req_ext ]
+subjectKeyIdentifier = hash
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, digitalSignature, nonRepudiation, keyEncipherment, keyCertSign
+subjectAltName=@san
+[ san ]
+DNS.1 = istiod.istio-system.svc
+[ req_dn ]
+O = Istio
+CN = Intermediate CA
+L = ${CLUSTER_NAME}
+```
 
 ## Gloo Mesh Managed Approach
 
@@ -104,6 +189,7 @@ kubectl get secret -n gloo-mesh -o jsonpath='{.data.key\.pem}' $SECRET_NAME | ba
 ```
 
 ## Leveraging AWS ACM
+
 There are a number of ways to use AWS ACM for your Root and Intermediate Certificate management strategy. Click the below links to see how
 
 * [ACM Root CA](./acm_root_ca.md)
@@ -112,6 +198,7 @@ There are a number of ways to use AWS ACM for your Root and Intermediate Certifi
 ## Using your own Certificates
 
 ### For Relay
+
 For relay communication you will need to issue a mTLS Server Certificate for the enterprise-networking application in the Management Plane and separate Client Certificates for each enterprise-agent application. These certificates need to share the same certificate chain, but can be different from the Istio CA Certificates chain. 
 
 See [Certificates outside of Gloo Mesh](./without_gloo_mesh.md)
@@ -119,6 +206,7 @@ See [Certificates outside of Gloo Mesh](./without_gloo_mesh.md)
 
 
 ### For Istio CAs
+
 * Kubernetes Secrets
 You can bring your own signing certificates and store them as Kubernetes secrets within each cluster. The name of the secret must be `cacerts` in the `istio-system` namespace. The files contained also must be named the same as the below example command.
 
@@ -136,6 +224,8 @@ kubectl create secret generic cacerts -n istio-system \
 ```
 
 See [Certificates outside of Gloo Mesh](./without_gloo_mesh.md)
+
+[Istio Pligin CA Certificate](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/)
 
 ### Vault
 

@@ -76,6 +76,7 @@ aws acm-pca import-certificate-authority-certificate \
 ###########################################################
 
 # Generate Intermediate CA Certificate Request
+CLUSTER_NAME=cluster-1
 cat > "gloo-mesh-intermediate.conf" <<EOF
 [req]
 req_extensions = v3_req
@@ -87,7 +88,7 @@ keyUsage = digitalSignature, keyEncipherment, keyCertSign
 extendedKeyUsage = clientAuth, serverAuth
 subjectAltName = @alt_names
 [alt_names]
-DNS = *.gloo-mesh
+DNS = $CLUSTER_NAME.gloo-mesh.agent
 EOF
 
 openssl genrsa -out gloo-mesh-intermediate.key 2048
