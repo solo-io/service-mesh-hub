@@ -3,7 +3,7 @@ package observability.enterprise.mesh.gloo.solo.io;
 
 option go_package = "github.com/solo-io/gloo-mesh/pkg/api/observability.enterprise.mesh.gloo.solo.io/v1";
 
-import "github.com/solo-io/gloo-mesh/api/networking/v1/request_matchers.proto";
+import "github.com/solo-io/gloo-mesh/api/common/v1/request_matchers.proto";
 import "github.com/solo-io/gloo-mesh/api/common/v1/validation_state.proto";
 import "github.com/solo-io/gloo-mesh/api/networking/v1/status.proto";
 import "github.com/solo-io/gloo-mesh/api/networking/v1/traffic_policy.proto";
@@ -43,10 +43,10 @@ message AccessLogRecordSpec {
         // Criteria type.
         oneof type {
             // Matches against a response status code. Omit to match any status code.
-            .networking.mesh.gloo.solo.io.StatusCodeMatcher status_code_matcher = 1;
+            .common.mesh.gloo.solo.io.StatusCodeMatcher status_code_matcher = 1;
 
             // Matches against a request or response header. Omit to match any headers.
-            .networking.mesh.gloo.solo.io.HeaderMatcher header_matcher = 2;
+            .common.mesh.gloo.solo.io.HeaderMatcher header_matcher = 2;
         }
     }
 }
