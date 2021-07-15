@@ -111,7 +111,8 @@ func initializePolicyStatuses(input input.LocalSnapshot) {
 			Meshes:             map[string]*networkingv1.ApprovalStatus{},
 			Destinations:       map[string]*networkingv1.ApprovalStatus{},
 			// Need to retain previous conditions
-			Conditions: virtualMesh.Status.Conditions,
+			Conditions:     virtualMesh.Status.Conditions,
+			RotationTarget: virtualMesh.Status.RotationTarget,
 		}
 	}
 }

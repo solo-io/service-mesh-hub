@@ -317,12 +317,12 @@ func (m *VirtualMeshStatus) Equal(that interface{}) bool {
 
 	}
 
-	if h, ok := interface{}(m.GetRotationTarget()).(equality.Equalizer); ok {
-		if !h.Equal(target.GetRotationTarget()) {
+	if h, ok := interface{}(m.GetDeployedSharedTrust()).(equality.Equalizer); ok {
+		if !h.Equal(target.GetDeployedSharedTrust()) {
 			return false
 		}
 	} else {
-		if !proto.Equal(m.GetRotationTarget(), target.GetRotationTarget()) {
+		if !proto.Equal(m.GetDeployedSharedTrust(), target.GetDeployedSharedTrust()) {
 			return false
 		}
 	}

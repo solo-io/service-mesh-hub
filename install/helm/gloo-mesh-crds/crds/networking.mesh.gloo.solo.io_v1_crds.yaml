@@ -2429,100 +2429,9 @@ spec:
                     type: string
                 type: object
               type: array
-            destinations:
-              additionalProperties:
-                properties:
-                  acceptanceOrder:
-                    description: |-
-                      Represents the order in which the policy
-                      was accepted and applied to a discovery resource. The first accepted policy
-                      will have an acceptance_order of 0, the second 1, etc.
-                      When conflicts are detected in the system,
-                      the Policy with the lowest acceptance_order
-                      will be chosen and all other conflicting policies will be rejected.
-                    maximum: 4294967295
-                    minimum: 0
-                    type: integer
-                  errors:
-                    description: Any errors observed which prevented the resource
-                      from being Accepted.
-                    items:
-                      type: string
-                    type: array
-                  state:
-                    description: The result of attempting to apply the policy to the
-                      discovery resource.
-                    enum:
-                    - PENDING
-                    - ACCEPTED
-                    - INVALID
-                    - FAILED
-                    type: string
-                  warnings:
-                    description: Any warnings observed while processing the resource.
-                    items:
-                      type: string
-                    type: array
-                type: object
+            deployedSharedTrust:
               description: |-
-                The status of the VirtualMesh for each Destination to which it has been applied.
-                A VirtualMesh may be Accepted for some Destinations and rejected for others.
-              type: object
-            errors:
-              description: Any errors found while processing this generation of the
-                resource.
-              items:
-                type: string
-              type: array
-            meshes:
-              additionalProperties:
-                properties:
-                  acceptanceOrder:
-                    description: |-
-                      Represents the order in which the policy
-                      was accepted and applied to a discovery resource. The first accepted policy
-                      will have an acceptance_order of 0, the second 1, etc.
-                      When conflicts are detected in the system,
-                      the Policy with the lowest acceptance_order
-                      will be chosen and all other conflicting policies will be rejected.
-                    maximum: 4294967295
-                    minimum: 0
-                    type: integer
-                  errors:
-                    description: Any errors observed which prevented the resource
-                      from being Accepted.
-                    items:
-                      type: string
-                    type: array
-                  state:
-                    description: The result of attempting to apply the policy to the
-                      discovery resource.
-                    enum:
-                    - PENDING
-                    - ACCEPTED
-                    - INVALID
-                    - FAILED
-                    type: string
-                  warnings:
-                    description: Any warnings observed while processing the resource.
-                    items:
-                      type: string
-                    type: array
-                type: object
-              description: |-
-                The status of the VirtualMesh for each Mesh to which it has been applied.
-                A VirtualMesh may be Accepted for some Meshes and rejected for others.
-              type: object
-            observedGeneration:
-              description: |-
-                The most recent generation observed in the the VirtualMesh metadata.
-                If the `observedGeneration` does not match `metadata.generation`, Gloo Mesh has not processed the most
-                recent version of this resource.
-              format: int64
-              type: integer
-            rotationTarget:
-              description: |-
-                A copy of the shared_trust object currently being rotated to. If the shared trust object in the spec
+                A copy of the shared_trust object currently deployed in the cluster. If the shared trust object in the spec
                 is different from this, we need to start a new rotation.
               oneOf:
               - not:
@@ -2896,6 +2805,97 @@ spec:
                       type: object
                   type: object
               type: object
+            destinations:
+              additionalProperties:
+                properties:
+                  acceptanceOrder:
+                    description: |-
+                      Represents the order in which the policy
+                      was accepted and applied to a discovery resource. The first accepted policy
+                      will have an acceptance_order of 0, the second 1, etc.
+                      When conflicts are detected in the system,
+                      the Policy with the lowest acceptance_order
+                      will be chosen and all other conflicting policies will be rejected.
+                    maximum: 4294967295
+                    minimum: 0
+                    type: integer
+                  errors:
+                    description: Any errors observed which prevented the resource
+                      from being Accepted.
+                    items:
+                      type: string
+                    type: array
+                  state:
+                    description: The result of attempting to apply the policy to the
+                      discovery resource.
+                    enum:
+                    - PENDING
+                    - ACCEPTED
+                    - INVALID
+                    - FAILED
+                    type: string
+                  warnings:
+                    description: Any warnings observed while processing the resource.
+                    items:
+                      type: string
+                    type: array
+                type: object
+              description: |-
+                The status of the VirtualMesh for each Destination to which it has been applied.
+                A VirtualMesh may be Accepted for some Destinations and rejected for others.
+              type: object
+            errors:
+              description: Any errors found while processing this generation of the
+                resource.
+              items:
+                type: string
+              type: array
+            meshes:
+              additionalProperties:
+                properties:
+                  acceptanceOrder:
+                    description: |-
+                      Represents the order in which the policy
+                      was accepted and applied to a discovery resource. The first accepted policy
+                      will have an acceptance_order of 0, the second 1, etc.
+                      When conflicts are detected in the system,
+                      the Policy with the lowest acceptance_order
+                      will be chosen and all other conflicting policies will be rejected.
+                    maximum: 4294967295
+                    minimum: 0
+                    type: integer
+                  errors:
+                    description: Any errors observed which prevented the resource
+                      from being Accepted.
+                    items:
+                      type: string
+                    type: array
+                  state:
+                    description: The result of attempting to apply the policy to the
+                      discovery resource.
+                    enum:
+                    - PENDING
+                    - ACCEPTED
+                    - INVALID
+                    - FAILED
+                    type: string
+                  warnings:
+                    description: Any warnings observed while processing the resource.
+                    items:
+                      type: string
+                    type: array
+                type: object
+              description: |-
+                The status of the VirtualMesh for each Mesh to which it has been applied.
+                A VirtualMesh may be Accepted for some Meshes and rejected for others.
+              type: object
+            observedGeneration:
+              description: |-
+                The most recent generation observed in the the VirtualMesh metadata.
+                If the `observedGeneration` does not match `metadata.generation`, Gloo Mesh has not processed the most
+                recent version of this resource.
+              format: int64
+              type: integer
             state:
               description: |-
                 The state of the overall resource. It will only show accepted if it has been successfully

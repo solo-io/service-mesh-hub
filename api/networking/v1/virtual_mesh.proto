@@ -196,7 +196,7 @@ message VirtualMeshStatus {
     // List of rotation conditions which have been completed/carried out for this Virtual Mesh
     repeated .certificates.mesh.gloo.solo.io.CertificateRotationCondition conditions = 6;
 
-    // A copy of the shared_trust object currently being rotated to. If the shared trust object in the spec
+    // A copy of the shared_trust object currently deployed in the cluster. If the shared trust object in the spec
     // is different from this, we need to start a new rotation.
-    SharedTrust rotation_target = 7;
+    SharedTrust deployed_shared_trust = 7;
 }
