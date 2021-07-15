@@ -103,6 +103,12 @@ kubectl get secret -n gloo-mesh -o jsonpath='{.data.root-cert\.pem}' $SECRET_NAM
 kubectl get secret -n gloo-mesh -o jsonpath='{.data.key\.pem}' $SECRET_NAME | base64 --decode > $SECRET_NAME/tls.key
 ```
 
+## Leveraging AWS ACM
+There are a number of ways to use AWS ACM for your Root and Intermediate Certificate management strategy. Click the below links to see how
+
+* [ACM Root CA](./acm_root_ca.md)
+* [ACM instead of Gloo Mesh](./without_gloo_mesh.md)
+
 ## Using your own Certificates
 
 ### For Relay
