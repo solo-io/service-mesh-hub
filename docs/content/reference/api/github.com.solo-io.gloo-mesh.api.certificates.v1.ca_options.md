@@ -108,14 +108,15 @@ State of Certificate Rotation Possible states in which a CertificateRotation can
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | NOT_APPLICABLE | 0 | No Certificate rotation is currently happening |
-| ADDING_NEW_ROOT | 1 | The CertificateRotation is underway, both roots are set, and the new root is being propagated |
-| PROPAGATING_NEW_INTERMEDIATE | 2 | The CertificateRotation is underway again. The initial verification is over, the traffic continues to work with both roots present. Now the old root is being removed, and the new root is being propagated alone to the data-plane clusters |
-| DELETING_OLD_ROOT | 3 | The CertificateRotation is underway again. Removing the old-root from all data-plane clusters |
-| VERIFYING | 4 | Verifying connectivity between workloads, the workflow will not progress until connectivity has been verified. This can either be manual or in the future automated |
-| VERIFIED | 5 | The connectivity has been verified. |
-| ROLLING_BACK | 6 | The connectivity has been deemed to not be functioning properly, rolling back to the last known good state. |
-| FINISHED | 7 | The rotation has finished, the new root has been propagated to all data-plane clusters, and traffic has been verified successfully. |
-| FAILED | 8 | Processing the certificate rotation workflow failed. |
+| PREVIOUS_CA | 1 | Signing the certificate using the previously applied CA. This step is mostly used when `ADDING_NEW_ROOT` fails, and the rotation has to be ROLLED_BACK |
+| ADDING_NEW_ROOT | 2 | The CertificateRotation is underway, both roots are set, and the new root is being propagated |
+| PROPAGATING_NEW_INTERMEDIATE | 3 | The CertificateRotation is underway again. The initial verification is over, the traffic continues to work with both roots present. Now the old root is being removed, and the new root is being propagated alone to the data-plane clusters |
+| DELETING_OLD_ROOT | 4 | The CertificateRotation is underway again. Removing the old-root from all data-plane clusters |
+| VERIFYING | 5 | Verifying connectivity between workloads, the workflow will not progress until connectivity has been verified. This can either be manual or in the future automated |
+| VERIFIED | 6 | The connectivity has been verified. |
+| ROLLING_BACK | 7 | The connectivity has been deemed to not be functioning properly, rolling back to the last known good state. |
+| FINISHED | 8 | The rotation has finished, the new root has been propagated to all data-plane clusters, and traffic has been verified successfully. |
+| FAILED | 9 | Processing the certificate rotation workflow failed. |
 
 
 

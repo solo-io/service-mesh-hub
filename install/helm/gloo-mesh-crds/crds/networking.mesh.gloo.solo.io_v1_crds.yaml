@@ -2415,6 +2415,7 @@ spec:
                     description: The current state of the cert rotation
                     enum:
                     - NOT_APPLICABLE
+                    - PREVIOUS_CA
                     - ADDING_NEW_ROOT
                     - PROPAGATING_NEW_INTERMEDIATE
                     - DELETING_OLD_ROOT

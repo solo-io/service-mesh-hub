@@ -418,6 +418,7 @@ spec:
                 construct the intermediary certs which the data-plane clusters receive
               enum:
               - NOT_APPLICABLE
+              - PREVIOUS_CA
               - ADDING_NEW_ROOT
               - PROPAGATING_NEW_INTERMEDIATE
               - DELETING_OLD_ROOT
@@ -765,6 +766,7 @@ spec:
                 reconciler to ensure it is looking at the correct iteration of the object.
               enum:
               - NOT_APPLICABLE
+              - PREVIOUS_CA
               - ADDING_NEW_ROOT
               - PROPAGATING_NEW_INTERMEDIATE
               - DELETING_OLD_ROOT
