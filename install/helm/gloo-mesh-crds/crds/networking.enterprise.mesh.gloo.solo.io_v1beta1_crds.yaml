@@ -5484,6 +5484,14 @@ spec:
                     type: object
                 type: object
               type: array
+            weight:
+              description: |-
+                When multiple route tables are matched by a selector their routes will be sorted together by specificity.
+                Giving a route table a weight wil make all its routes take precedence over route tables with a lower weight.
+                Weights are only used when a selector is used since the order is not guaranteed. Route tables specified with a
+                ref are ordered and will take precedence over any route tables selected via selector.
+              format: int32
+              type: integer
           type: object
         status:
           properties:
