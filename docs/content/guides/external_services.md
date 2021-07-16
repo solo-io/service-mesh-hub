@@ -25,7 +25,7 @@ Sometimes within a mesh, an application needs the ability to communicate with se
 
 #### Destination CRD
 
-The [Destination CRD]({{% versioned_link_path fromRoot="/reference/api/github.com.solo-io.gloo-mesh.api.networking.v1.destination/" %}}) can be thought of as a host. In other words an addressable host which may be backed by 0-n endpoints. Typically these `Destinations` are Discovered by Gloo Mesh, and are backed by kubernetes workloads. However, that is only 1 use case. An external service at it's core is just a hostname backed my 0-n endpoints as well, so in comes the `External Destination`.
+The [Destination CRD]({{% versioned_link_path fromRoot="/reference/api/github.com.solo-io.gloo-mesh.api.discovery.v1.destination/" %}}) can be thought of as a host. In other words an addressable host which may be backed by any number of endpoints. Typically these destinations are discovered by Gloo Mesh and are backed by Kubernetes workloads. However, an external service represents a destination external to the service mesh, and perhaps the Kubernetes cluster. The Destination CRD provides a way to represent these external services manually.
 
 The `External Destination` is not a seperate CRD in itself, but rather a way to configure the `Destination` CRD to accomplish our goal of routing to services which exist outside of our mesh.
 
